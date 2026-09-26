@@ -35,5 +35,26 @@ class Debt:
         raise NotImplementedError("getminpayment function not implemented yet")
 
 
+class InstallmentDebt(Debt):
+
+    def __init__(self, name, balance, apr, minPaymentValue):
+        super().__init__(self,name,balance,apr)
+        self.minPaymentValue = minPaymentValue
+
+    def getMinPayment(self):
+        return min(self.balance, self.minPaymentValue)
+
+class CreditCardDebt(Debt):
+    def __init__(self, name, balance, apr, minPaymentValue, minPaymentPercent):
+        super().__init__(self, name, balance, apr)
+        self.minPaymentValue = minPaymentValue
+        self.minPaymentPercent = minPaymentPercent
+
+    def getMinPayment(self):
+        return min(max(self.minPaymentValue, self.minPaymentPercent*self.balance), self.balance)
+
+    
+
+
 
     
